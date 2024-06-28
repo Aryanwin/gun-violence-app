@@ -25,3 +25,23 @@ def dateconvert(string):
     dateint = dateint + day
     
     return dateint
+
+gun_datalist = []
+for i in range(len(gun_data)):
+    gun_datalist.append((dateconvert(gun_data.loc[i,"date"])))
+
+gun_data["intDate"] = gun_datalist
+
+risklist = []
+totalrisk = 0
+ct = 0
+for i in range(len(gun_data)):
+    temp = 10*gun_data.loc[i,"n_killed"]+2*gun_data.loc[i,"n_injured"]
+    risklist.append(temp)
+    totalrisk = totalrisk + temp
+    ct+=1
+#print(risklist)
+meanrisk = totalrisk/ct
+#print(maxrisk)
+
+gun_data["risk"] = risklist
