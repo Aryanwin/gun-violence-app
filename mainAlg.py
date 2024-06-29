@@ -7,8 +7,15 @@ from statistics import mean
 from sklearn import linear_model
 from scipy import stats
 
+from datetime import datetime as dt
+
+from pyscript import document
+from pyweb import pydom
+
 gun_dataset = pd.read_csv("GunViolence.csv")
 gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
+
+finalRisk = 0
 
 #method that converts inputted date in format 
 #yyyy/mm/dd into an integer that can be used
@@ -47,7 +54,10 @@ meanrisk = totalrisk/ct
 gun_data["risk"] = risklist
 
 
-def riskCalcAlg(State, city, date):
+def riskCalcAlg(event):
+    State = Statebutton.value
+    city = citybutton.value
+    date= datebutton.value
     gun_data_filtered = gun_data.loc[gun_data["state"]==State]
     #print(gun_data_filtered)
     gun_data_filtered2 = gun_data_filtered.loc[gun_data_filtered["city_or_county"]==city]
@@ -72,7 +82,8 @@ def riskCalcAlg(State, city, date):
     predrisk = model.intercept_ + model.coef_*(dateconvert(date))
     print(model.intercept_)
     print(model.coef_)
-    return round(predrisk[0][0]/meanrisk,3)*100
+    finalRisk = round(predrisk[0][0]/meanrisk,3)*100
+    return finalRisk
 
 print(riskCalcAlg("New Hampshire", "Nashua", "2025/03/25"))
 print("success!")
