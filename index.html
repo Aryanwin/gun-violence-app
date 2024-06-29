@@ -1,99 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
+        <meta charset="UTF-8" /> 
+        <meta http-equiv="X-UA-Compatible" content = "IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
         <title>Gun Violence Predicter</title>
-        <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-        <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />  
+        <link rel="stylesheet" href="https://pyscript.net/releases/2024.6.2/core.css">
+        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>   
     </head>
     <body>
-
+        <py-script>
+            print("hello world")
+        </py-script>
         <py-config>
-            packages = ["matplotlib", "pandas", "seaborn", "scikit-learn"]
+            packages = ["numpy", "matplotlib", "pandas", "seaborn", "scikit-learn"]
         </py-config>
-        <py-env src = "mainAlg.py">
-            -numpy
-            -matplotlib
-            
-        </py-env>/
-        <py-script  src = GunViolence.csv>
-            import pandas as pd
-            import numpy as np
-            import seaborn as sns
-            import matplotlib.pyplot as plt
-            import statistics as st
-            from statistics import mean
-            from sklearn import linear_model
-            from scipy import stats
+        <py-script>
+            print("hello world")
+        </py-script>
+        <py-script  src = "GunViolence.csv" src = "mainAlg.py">
+            print("hello")
+            import GunViolence.csv
+            from mainAlg import riskCalcAlg
 
-            gun_dataset = pd.read_csv("GunViolence.csv")
-            gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
-
-            #method that converts inputted date in format 
-            #yyyy/mm/dd into an integer that can be used
-            def dateconvert(string):
-                dateint = 0
-                monthlist = [31,28,31,30,31,30,31,31,30,31,30,31]
-                
-                year = int(string[0:4])
-                month = int(string[5:7])
-                day = int(string[8:10])
-                dateint = dateint + 365*(year-2013) + int((year-2012)/4)
-                for i in range(month-1):
-                    dateint = dateint + monthlist[i]
-                dateint = dateint + day
-                
-                return dateint
-
-            gun_datalist = []
-            for i in range(len(gun_data)):
-                gun_datalist.append((dateconvert(gun_data.loc[i,"date"])))
-
-            gun_data["intDate"] = gun_datalist
-
-            risklist = []
-            totalrisk = 0
-            ct = 0
-            for i in range(len(gun_data)):
-                temp = 10*gun_data.loc[i,"n_killed"]+2*gun_data.loc[i,"n_injured"]
-                risklist.append(temp)
-                totalrisk = totalrisk + temp
-                ct+=1
-            #print(risklist)
-            meanrisk = totalrisk/ct
-            #print(maxrisk)
-
-            gun_data["risk"] = risklist
-
-
-            def riskCalcAlg(State, city, date):
-                gun_data_filtered = gun_data.loc[gun_data["state"]==State]
-                #print(gun_data_filtered)
-                gun_data_filtered2 = gun_data_filtered.loc[gun_data_filtered["city_or_county"]==city]
-                #print(gun_data_filtered2)
-                
-                x = gun_data_filtered2[["intDate"]]
-                y = gun_data_filtered2[["risk"]]
-                #print(y)
-                
-                model = linear_model.LinearRegression()
-
-                model.fit(x,y)
-
-                y_pred = model.predict(x)
-                
-                ##prints out the graph using plt...if yall can figure out how to implement this then great, but for rn it'll stay commented
-                plt.plot(gun_data_filtered2["intDate"], y_pred, color='red')
-                #plt.scatter(x, y) 
-                plt.savefig('gundata.png')
-                ##plt.show()
-                
-                predrisk = model.intercept_ + model.coef_*(dateconvert(date))
-                print(model.intercept_)
-                print(model.coef_)
-                return round(predrisk[0][0]/meanrisk,3)*100
-
-            print(riskCalcAlg("New Hampshire", "Nashua", "2025/03/25"))
-            print("success!")
+            print(riskCalcAlg("Georgia", "Atlanta", "06/28/24"))
         
         </py-script>
         <img src="gundata.png" alt="nada" width="104" height="142">
