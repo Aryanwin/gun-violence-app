@@ -2,13 +2,9 @@
 <html>
     <head>
         
-        <meta charset="UTF-8" /> 
-        <meta http-equiv="X-UA-Compatible" content = "IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1" /> 
-        <title>Gun Violence Predicter</title>
-        <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />  
-        <link rel="stylesheet" href="https://pyscript.net/releases/2024.6.2/core.css">
-        <script defer src="https://pyscript.net/alpha/pyscript.js"></script>   
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <title>Gun Violence Predicter</title>  
     </head>
     <body>
         <py-script>
@@ -20,14 +16,8 @@
         <py-script>
             print("hello world")
         </py-script>
-        <py-script  src = "GunViolence.csv" src = "mainAlg.py">
-            print("hello")
-            import GunViolence.csv
-            from mainAlg import riskCalcAlg
-
-            print(riskCalcAlg("Georgia", "Atlanta", "06/28/24"))
-        
-        </py-script>
+        <script type="py" src="./mainAlg.py" config="./pyscript.toml"></script>
+            
         <img src="gundata.png" alt="nada" width="104" height="142">
     </body>
 </html>
