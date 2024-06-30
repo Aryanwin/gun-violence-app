@@ -21,9 +21,10 @@ def q(selector, root=document):
     return root.querySelector(selector)
 task_template = pydom.Element(q("#task-template").content.querySelector(".task"))
 
-task_list = pydom["#list-tasks-container"][0]
-new_task_content = pydom["#new-task-content"][0]
-
+returnimage = pydom["#image display"][0]
+State1 = pydom["#Statebutton"][0]
+city1 = pydom["#citybutton"][0]
+date1 = pydom["#datebutton"][0]
 
 #method that converts inputted date in format 
 #yyyy/mm/dd into an integer that can be used
@@ -63,9 +64,9 @@ gun_data["risk"] = risklist
 
 
 def riskCalcAlg(event):
-    State = Statebutton.value
-    city = citybutton.value
-    date= datebutton.value
+    State = State1.value
+    city = city1.value
+    date= date1.value
     gun_data_filtered = gun_data.loc[gun_data["state"]==State]
     #print(gun_data_filtered)
     gun_data_filtered2 = gun_data_filtered.loc[gun_data_filtered["city_or_county"]==city]
