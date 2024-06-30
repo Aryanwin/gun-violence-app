@@ -17,6 +17,14 @@ gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county",
 
 finalRisk = 0
 
+def q(selector, root=document):
+    return root.querySelector(selector)
+task_template = pydom.Element(q("#task-template").content.querySelector(".task"))
+
+task_list = pydom["#list-tasks-container"][0]
+new_task_content = pydom["#new-task-content"][0]
+
+
 #method that converts inputted date in format 
 #yyyy/mm/dd into an integer that can be used
 def dateconvert(string):
