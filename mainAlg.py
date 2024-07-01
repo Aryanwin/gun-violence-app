@@ -1,4 +1,7 @@
 import pandas as pd
+import panel as pn
+
+import hvplot.pandas
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -6,20 +9,23 @@ import statistics as st
 from statistics import mean
 from sklearn import linear_model
 from scipy import stats
+from js import console
 
 from datetime import datetime as dt
 
 from pyscript import document
 from pyweb import pydom
 
-gun_dataset = pd.read_csv("GunViolence.csv")
+patch_all()
+
+gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")
+gun_dataset = pd.read_csv(gun_dataset_og)
 gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
 
 finalRisk = 0
 
 def q(selector, root=document):
     return root.querySelector(selector)
-task_template = pydom.Element(q("#task-template").content.querySelector(".task"))
 
 returnimage = pydom["#image display"][0]
 State1 = pydom["#Statebutton"][0]
