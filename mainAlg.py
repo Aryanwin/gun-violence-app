@@ -21,16 +21,25 @@ patch_all()
 gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")
 gun_dataset = pd.read_csv(gun_dataset_og)
 gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
+console.log("Downloaded data")
 
 finalRisk = 0
+## I know this is lazy but there's no point parsing through 250k lines just for this one-time copy-paste
+allStates = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado",
+  "Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois",
+  "Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland",
+  "Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana",
+  "Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York",
+  "North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania",
+  "Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah",
+  "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
+
+variable_widget = pn.widgets.Select(
+    name = "variable", value = "Alabama", options = allStates
+)
 
 def q(selector, root=document):
     return root.querySelector(selector)
-
-returnimage = pydom["#image display"][0]
-State1 = pydom["#Statebutton"][0]
-city1 = pydom["#citybutton"][0]
-date1 = pydom["#datebutton"][0]
 
 #method that converts inputted date in format 
 #yyyy/mm/dd into an integer that can be used
