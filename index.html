@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html>
     <head>
-        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Gun Violence Predicter</title>  
+        <link rel="stylesheet" href="https://pyscript.net/releases/2024.1.1/core.css">
+        <link rel="stylesheet" href="./assets/css/examples.css" />
+        <script type="module" src="https://pyscript.net/releases/2024.1.1/core.js"></script>
     </head>
     <body>
-        <main>
-            <script type="py" src="./main.py" config="./pyscript.toml"></script>
-        </main>
+        <h1>Gun Violence Calculator</h1>
+        <py-config>
+            packages = ["matplotlib", "pandas"]
+        </py-config>
+        <py-script type="py" src="./mainAlg.py" config="./pyscript.toml"></py-script>
+        
+        
     </body>
 </html>

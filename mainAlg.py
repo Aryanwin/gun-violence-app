@@ -16,6 +16,8 @@ from datetime import datetime as dt
 from pyscript import document
 from pyweb import pydom
 
+
+prim()
 patch_all()
 
 gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")
