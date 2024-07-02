@@ -1,3 +1,4 @@
+import js
 from js import console
 console.log("console working")
 
@@ -81,7 +82,9 @@ meanrisk = totalrisk/ct
 gun_data["risk"] = risklist
 
 
-def riskCalcAlg(State, date):
+def riskCalcAlg(State):
+    plt.clf()
+    
     gun_data_filtered = gun_data.loc[gun_data["state"]==State]
     #print(gun_data_filtered2)
     
@@ -101,20 +104,23 @@ def riskCalcAlg(State, date):
     plt.savefig('gundata.png')
     plt.show()
     
-    predrisk = model.intercept_ + model.coef_*(dateconvert(date))
+    predrisk = model.intercept_ + model.coef_*(dateconvert("2024/07/02"))
     #print(model.intercept_)
     #print(model.coef_)
     finalRisk = round(predrisk[0][0]/meanrisk,3)*100
-    return finalRisk
+    return "The risk of gun violence in this state is: " + finalRisk + "%"
 
 
 avg = variable_widget.value
 console.log(variable_widget.value)
 #pipeline = avg.hvplot(height=300, width=400, color="blue", legend=False)
-pn.Column(variable_widget).servable(
+interactive_gun_violence_predicter = pn.bind(riskCalcAlg, variable_widget)
+
+pn.Column(variable_widget, interactive_gun_violence_predicter).servable(
     target="panel"
 )
-riskCalcAlg(avg,"2024/07/02")
-variable_widget.param.watch(console.log(variable_widget.value), "value")
-variable_widget.param.watch(riskCalcAlg(avg, "2024/07/02"), "value")
-variable_widget.param.watch(console.log(avg), "value")
+
+#riskCalcAlg(avg,"2024/07/02")
+#variable_widget.param.watch(print("hello"), "value")
+#variable_widget.param.watch(riskCalcAlg(avg, "2024/07/02"), "value")
+#variable_widget.param.watch(console.log(avg), "value")
