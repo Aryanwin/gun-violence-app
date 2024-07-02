@@ -23,6 +23,7 @@ from pyodide_http import patch_all
 patch_all()
 
 gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")
+console.log("works till here")
 gun_dataset = pd.read_csv(gun_dataset_og)
 gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
 console.log("Downloaded data")
