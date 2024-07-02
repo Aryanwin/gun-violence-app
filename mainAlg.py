@@ -1,3 +1,6 @@
+from js import console
+console.log("console working")
+
 import pandas as pd
 import panel as pn
 
@@ -9,15 +12,14 @@ import statistics as st
 from statistics import mean
 from sklearn import linear_model
 from scipy import stats
-from js import console
 
 from datetime import datetime as dt
 
 from pyscript import document
 from pyweb import pydom
+from pyodide_http import patch_all
 
 
-prim()
 patch_all()
 
 gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")

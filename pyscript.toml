@@ -1,2 +1,3 @@
 name = "Gun Violence App"
 description = "Using Pyscript to make a simple app to predict gun violence in a region."
+packages = [ "bokeh==3.2.2", "panel==1.3.8", "markdown-it-py", "numpy", "pandas", "hvplot", "pyodide-http","seaborn", "scikit-learn"]
