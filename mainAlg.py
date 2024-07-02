@@ -21,15 +21,7 @@ from pyodide_http import patch_all
 
 
 patch_all()
-
-gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")
-console.log("works till here")
-gun_dataset = pd.read_csv(gun_dataset_og)
-gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
-console.log("Downloaded data")
-
-finalRisk = 0
-## I know this is lazy but there's no point parsing through 250k lines just for this one-time copy-paste
+pn.extension(design="material")
 allStates = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado",
   "Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois",
   "Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland",
@@ -40,8 +32,17 @@ allStates = ["Alabama","Alaska","Arizona","Arkansas","California","Colorado",
   "Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]
 
 variable_widget = pn.widgets.Select(
-    name = "variable", value = "Alabama", options = allStates
+    name = "Choose State", value="Illinois", options = list(allStates)
 )
+
+gun_dataset_og = ("https://media.githubusercontent.com/media/Aryanwin/gun-violence-app/main/GunViolence3.csv")
+console.log("works till here")
+gun_dataset = pd.read_csv(gun_dataset_og)
+gun_data = gun_dataset.filter(["incident_id", "date", "state", "city_or_county", "n_killed", "n_injured"], axis = 1)
+console.log("Downloaded data")
+
+finalRisk = 0
+## I know this is lazy but there's no point parsing through 250k lines just for this one-time copy-paste
 
 #method that converts inputted date in format 
 #yyyy/mm/dd into an integer that can be used
@@ -106,5 +107,11 @@ def riskCalcAlg(State, date):
     finalRisk = round(predrisk[0][0]/meanrisk,3)*100
     return finalRisk
 
-print(riskCalcAlg("Illinois", "2025/03/25"))
-print("success!")
+data = gun_data.interactive()
+avg = variable_widget.value
+#pipeline = avg.hvplot(height=300, width=400, color="blue", legend=False)
+pn.Column(variable_widget).servable(
+    target="panel"
+)
+
+riskCalcAlg(avg, "2024/07/02")
