@@ -102,13 +102,16 @@ def riskCalcAlg(State):
     plt.plot(gun_data_filtered["intDate"], y_pred, color='red')
     plt.scatter(x, y) 
     plt.savefig('gundata.png')
+    plt.title(State)
+    plt.xlabel("# of Days")
+    plt.ylabel("Relative Risk Factor")
     plt.show()
     
     predrisk = model.intercept_ + model.coef_*(dateconvert("2024/07/02"))
     #print(model.intercept_)
     #print(model.coef_)
     finalRisk = round(predrisk[0][0]/meanrisk,3)*100
-    return "The risk of gun violence in this state is: " + finalRisk + "%"
+    return "The risk of gun violence in this state is: " + str(finalRisk) + "%"
 
 
 avg = variable_widget.value
