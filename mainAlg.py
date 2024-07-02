@@ -43,9 +43,6 @@ variable_widget = pn.widgets.Select(
     name = "variable", value = "Alabama", options = allStates
 )
 
-def q(selector, root=document):
-    return root.querySelector(selector)
-
 #method that converts inputted date in format 
 #yyyy/mm/dd into an integer that can be used
 def dateconvert(string):
@@ -83,17 +80,12 @@ meanrisk = totalrisk/ct
 gun_data["risk"] = risklist
 
 
-def riskCalcAlg(event):
-    State = State1.value
-    city = city1.value
-    date= date1.value
+def riskCalcAlg(State, date):
     gun_data_filtered = gun_data.loc[gun_data["state"]==State]
-    #print(gun_data_filtered)
-    gun_data_filtered2 = gun_data_filtered.loc[gun_data_filtered["city_or_county"]==city]
     #print(gun_data_filtered2)
     
-    x = gun_data_filtered2[["intDate"]]
-    y = gun_data_filtered2[["risk"]]
+    x = gun_data_filtered[["intDate"]]
+    y = gun_data_filtered[["risk"]]
     #print(y)
     
     model = linear_model.LinearRegression()
@@ -103,16 +95,16 @@ def riskCalcAlg(event):
     y_pred = model.predict(x)
     
     ##prints out the graph using plt...if yall can figure out how to implement this then great, but for rn it'll stay commented
-    plt.plot(gun_data_filtered2["intDate"], y_pred, color='red')
+    plt.plot(gun_data_filtered["intDate"], y_pred, color='red')
     #plt.scatter(x, y) 
     plt.savefig('gundata.png')
-    ##plt.show()
+    plt.show()
     
     predrisk = model.intercept_ + model.coef_*(dateconvert(date))
-    print(model.intercept_)
-    print(model.coef_)
+    #print(model.intercept_)
+    #print(model.coef_)
     finalRisk = round(predrisk[0][0]/meanrisk,3)*100
     return finalRisk
 
-print(riskCalcAlg("New Hampshire", "Nashua", "2025/03/25"))
+print(riskCalcAlg("Illinois", "2025/03/25"))
 print("success!")
