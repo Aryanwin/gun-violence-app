@@ -107,11 +107,12 @@ def riskCalcAlg(State, date):
     finalRisk = round(predrisk[0][0]/meanrisk,3)*100
     return finalRisk
 
-data = gun_data.interactive()
+
 avg = variable_widget.value
 #pipeline = avg.hvplot(height=300, width=400, color="blue", legend=False)
 pn.Column(variable_widget).servable(
     target="panel"
 )
+riskCalcAlg(avg,"2024/07/02")
 
-riskCalcAlg(avg, "2024/07/02")
+variable_widget.param.watch(riskCalcAlg(variable_widget.value, "2024/07/02"))
