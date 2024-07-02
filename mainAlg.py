@@ -97,7 +97,7 @@ def riskCalcAlg(State, date):
     
     ##prints out the graph using plt...if yall can figure out how to implement this then great, but for rn it'll stay commented
     plt.plot(gun_data_filtered["intDate"], y_pred, color='red')
-    #plt.scatter(x, y) 
+    plt.scatter(x, y) 
     plt.savefig('gundata.png')
     plt.show()
     
@@ -109,10 +109,12 @@ def riskCalcAlg(State, date):
 
 
 avg = variable_widget.value
+console.log(variable_widget.value)
 #pipeline = avg.hvplot(height=300, width=400, color="blue", legend=False)
 pn.Column(variable_widget).servable(
     target="panel"
 )
 riskCalcAlg(avg,"2024/07/02")
-
-variable_widget.param.watch(riskCalcAlg(variable_widget.value, "2024/07/02"))
+variable_widget.param.watch(console.log(variable_widget.value), "value")
+variable_widget.param.watch(riskCalcAlg(avg, "2024/07/02"), "value")
+variable_widget.param.watch(console.log(avg), "value")
